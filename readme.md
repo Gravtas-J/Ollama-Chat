@@ -1,5 +1,5 @@
 
-# LLaMA Chat Interface with Streamlit
+# Ollama Chat Interface with Streamlit
 
 This Python application provides a chat interface powered by the LLaMA model, utilizing Streamlit for the user interface. The application makes API calls to a local server hosting the model, allowing users to interact with the AI in real-time.
 
