@@ -57,21 +57,20 @@ def chat(messages):
         return {"content": str(e)}
 
 def main():
-    st.title("LLaMA Chat Interface")
+    st.title("Ollama Chat Interface")
     user_input = st.chat_input("Enter your prompt:", key="1")
     if 'messages' not in st.session_state:
         st.session_state['messages'] = []
     show_msgs()
     if user_input:
-            with st.chat_message("user",):
-                st.write(user_input)
-            messages = [{"role": "user", "content": user_input}]
-            st.session_state.messages.append({"role": "user", "content": user_input})
-            response = chat(messages)
-            st.session_state.messages.append({"role": "assistant", "content": (response.get("content", "")), })
-            # st.chat_message("bot").write(response.get("content", ""))
-            with st.chat_message("assistant"):
-                st.write_stream(response_generator(response.get("content", "")))    
+        with st.chat_message("user"):
+            st.write(user_input)
+        st.session_state.messages.append({"role": "user", "content": user_input})
+        messages = "\n".join(msg["content"] for msg in st.session_state.messages)
+        response = chat(messages)
+        st.session_state.messages.append({"role": "assistant", "content": response})
+        with st.chat_message("assistant"):
+            st.write_stream(response_generator(response))
     else:
         st.info("Enter a prompt above to start the conversation")
 
