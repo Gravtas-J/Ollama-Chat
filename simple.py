@@ -29,7 +29,7 @@ def show_msgs():
             with st.chat_message(msg["role"]):
                 st.write(msg["content"])
 
-def chat(message, model='phi3'):
+def chat(message, model='llama3'): ### CHANGE MODEL ID HERE 
     try:
         response = ollama.chat(model=model, messages=[
             {
@@ -46,7 +46,7 @@ def chat(message, model='phi3'):
             return f"An unexpected error occurred with model '{model}': {str(e)}"
 
 def main():
-    st.title("LLaMA Chat Interface")
+    st.title("Ollama Chat Interface")
     user_input = st.chat_input("Enter your prompt:", key="1")
     if 'messages' not in st.session_state:
         st.session_state['messages'] = []
@@ -55,7 +55,8 @@ def main():
         with st.chat_message("user"):
             st.write(user_input)
         st.session_state.messages.append({"role": "user", "content": user_input})
-        response = chat(user_input)
+        messages = "\n".join(msg["content"] for msg in st.session_state.messages)
+        response = chat(messages)
         st.session_state.messages.append({"role": "assistant", "content": response})
         with st.chat_message("assistant"):
             st.write_stream(response_generator(response))
