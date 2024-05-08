@@ -80,7 +80,9 @@ def save_chat():
         filename = f'./Chats/{chat_summary}.txt'
         with open(filename, 'w') as f:
             for message in st.session_state['messages']:
-                f.write(f"{message['role']}: {message['content']}\n")
+                # Replace actual newline characters with a placeholder
+                encoded_content = message['content'].replace('\n', '\\n')
+                f.write(f"{message['role']}: {encoded_content}\n")
         st.session_state['messages'].clear()
     else:
         st.warning("No chat messages to save.")
@@ -93,11 +95,12 @@ def load_saved_chats():
         # Sort files by modification time, most recent first
         files.sort(key=lambda x: os.path.getmtime(os.path.join(chat_dir, x)), reverse=True)
         for file_name in files:
-            if st.sidebar.button(file_name):
+            display_name = file_name[:-4] if file_name.endswith('.txt') else file_name  # Remove '.txt' from display
+            if st.sidebar.button(display_name):
+                st.session_state['show_chats'] = False  # Make sure this is a Boolean False, not string 'False'
                 st.session_state['is_loaded'] = True
                 load_chat(f"./Chats/{file_name}")
-
-                
+                # show_msgs()
 
 def format_chatlog(chatlog):
     # Formats the chat log for downloading
@@ -106,26 +109,22 @@ def format_chatlog(chatlog):
 def load_chat(file_path):
     # Clear the existing messages in the session state
     st.session_state['messages'].clear()  # Using clear() to explicitly empty the list
-
+    show_msgs()
     # Read and process the file to extract messages and populate the session state
     with open(file_path, 'r') as file:
         for line in file.readlines():
             role, content = line.strip().split(': ', 1)
-            st.session_state['messages'].append({'role': role, 'content': content})
-    show_msgs()
+            # Decode the placeholder back to actual newline characters
+            decoded_content = content.replace('\\n', '\n')
+            st.session_state['messages'].append({'role': role, 'content': decoded_content})
 
-
-
-        
 def main():
     st.title("Ollama Chat Interface")
     user_input = st.chat_input("Enter your prompt:", key="1")
-    # if 'is_loaded' not in st.session_state:
-    #     st.session_state['is_loaded'] = "false"
     if 'show' not in st.session_state:
         st.session_state['show'] = 'True'
-    if 'Show chats' not in st.session_state:
-        st.session_state['Show chats'] = 'False'
+    if 'show_chats' not in st.session_state:
+        st.session_state['show_chats'] = 'False'
     if 'messages' not in st.session_state:
         st.session_state['messages'] = []
     if user_input:
@@ -137,7 +136,6 @@ def main():
         st.session_state.messages.append({"role": "assistant", "content": response})
         with st.chat_message("assistant"):
             st.write_stream(response_generator(response))
-        show_msgs()
     elif st.session_state['messages'] is None:
         st.info("Enter a prompt or load chat above to start the conversation")
     chatlog = format_chatlog(st.session_state['messages'])
@@ -154,13 +152,13 @@ def main():
 
     
     # Show/Hide chats toggle
-    if st.sidebar.checkbox("Show/hide chat history", value=False):
+    if st.sidebar.checkbox("Show/hide chat history", value=st.session_state['show_chats']):
         st.sidebar.title("Previous Chats")
         load_saved_chats()
+        
     for i in range(3):
         st.sidebar.write(" ")
-
-    
+    show_msgs()
 
 if __name__ == "__main__":
     main()
