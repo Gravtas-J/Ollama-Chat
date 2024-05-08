@@ -132,6 +132,7 @@ def main():
             st.write(user_input)
         st.session_state.messages.append({"role": "user", "content": user_input})
         messages = "\n".join(msg["content"] for msg in st.session_state.messages)
+        # print(messages)
         response = chat(messages)
         st.session_state.messages.append({"role": "assistant", "content": response})
         with st.chat_message("assistant"):
