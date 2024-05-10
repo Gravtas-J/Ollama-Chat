@@ -1,6 +1,6 @@
-### Ollama Chat Interface with Streamlit
+# Ollama Chat Interface with Streamlit
 
-#### Description:
+## Description:
 The Ollama Chat Interface is a conversational application developed using the Ollama library and Streamlit, aimed at simulating intelligent dialogues. It leverages the Ollama API to generate responses based on user inputs, allowing for interactive conversations within a streamlined interface.
 
 ![Ollama Chat Interface Screenshot](images/screenshot.png)
@@ -10,13 +10,13 @@ There is in-chat memory so it know what you've been talking about and can hold a
 
 Please for the love of all things **DOWNLOAD THE MODEL FIRST** the default has been changed to llama3:8b because phi3 was a bit.... terrible. 
 
-#### Features:
+## Features:
 - **Real-time Conversation Simulation**: Users can enter prompts, and the system generates responses dynamically, simulating a conversation.
 - **Chat History Management**: Users can save and load previous chat sessions, enabling continuity and review of past interactions.
 - **Chat Summarization**: Provides a summary of the chat sessions when saving, simplifying long conversations into concise summaries.
 - **Download Chat Log**: Users can download the full chat history as a text file for offline review or documentation.
 
-#### Installation:
+## Installation:
 1. **Prerequisites**:
 - Python 3.10+
 - Streamlit
@@ -53,22 +53,22 @@ pip install -r requirements.txt
     streamlit run intermediate.py
     ```
 
-#### Usage:
+## Usage:
 - **Starting a Chat**: Enter your prompt in the chat input box and press enter to receive a response.
 - **Saving a Chat**: Click the "Save Chat" button in the sidebar to save the current chat session.
 - **Loading a Chat**: Select a previous chat from the sidebar to load and view past conversations.
 - **Downloading Chat Log**: Use the "Download Chat Log" button in the sidebar to download the current chat log.
 
-#### File Structure:
+## File Structure:
 - `simple.py`: for people who want a self contained application
 - `intermediate.py`: For people who want to run the Ollama Server seperately 
 
-#### Common Issues:
+## Common Issues:
 - **Model Not Found Error**: Ensure the correct model name is specified and that your API keys are correctly configured.
 - **Network Issues**: Check your netowrk connection if the Ollama API can't be reached, ensure you've read the F.A.Q  on [Ollama's Github](https://github.com/ollama/ollama/blob/main/docs/api.md)
 - **Graphical Glitches**: When you load a chat and send your first message it will look like it unloads the chat, it is just a problem with how the messages are loaded into the chat interface. I'm sure a more motivated person could fix this. 
 
 For more detailed documentation on the Ollama library, please refer to [Ollama's Official Documentation](https://ollama.com/library).
 
-#### Developer Contact:
+## Developer Contact:
 For issues, suggestions, or contributions, please contact the idiot who made this through the repository issues section
