@@ -46,7 +46,7 @@ pip install -r requirements.txt
 
 4. **Run the application** - *intermediate.py*:
 
-    - Ensure that the local `Ollama` server is up and running on `http://localhost:11434/.
+    - Ensure that the local `Ollama` server is up and running on `http://localhost:11434/`.
     -  Ensure that the `model` you are trying to use as been downloaded. (the default is llama3)
     - Start a terminal in the root directory of the application and run: 
     ```bash
