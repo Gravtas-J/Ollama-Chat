@@ -1,7 +1,7 @@
 # Ollama Chat Interface with Streamlit
 
 ## Description:
-The Ollama Chat Interface is a conversational application developed using the Ollama library and Streamlit, aimed at simulating intelligent dialogues. It leverages the Ollama API to generate responses based on user inputs, allowing for interactive conversations within a streamlined interface.
+The Ollama Chat Interface is a conversational application developed using the Ollama library and Streamlit. It leverages the Ollama R.E.S.T API to generate responses based on user inputs, allowing for interactive conversations within a streamlined interface without an internet connection.
 
 ![Ollama Chat Interface Screenshot](images/screenshot.png)
 
