@@ -1,83 +1,74 @@
+### Ollama Chat Interface with Streamlit
 
-# Ollama Chat Interface with Streamlit
+#### Description:
+The Ollama Chat Interface is a conversational application developed using the Ollama library and Streamlit, aimed at simulating intelligent dialogues. It leverages the Ollama API to generate responses based on user inputs, allowing for interactive conversations within a streamlined interface.
 
-This Python application provides a chat interface powered by the LLaMA model, utilizing Streamlit for the user interface. The application makes API calls to a local server hosting the model, allowing users to interact with the AI in real-time.
+![Ollama Chat Interface Screenshot](images/screenshot.png)
 
-## Features
 
-- **Real-time Text Streaming**: Text from the AI is streamed word-by-word with a delay to simulate real-time typing.
-- **Session Management**: Previous chat messages are preserved in the session, allowing for continuous interaction.
-- **Error Handling**: Proper error handling for API responses and potential errors in communication.
+There is in-chat memory so it know what you've been talking about and can hold a conversation, you can save your chats for later what is summarised and named for you and you can download the chat logs for easy access. 
 
-## Prerequisites
+Please for the love of all things **DOWNLOAD THE MODEL FIRST** the default has been changed to llama3:8b because phi3 was a bit.... terrible. 
 
-Before you can run this application, make sure you have the following installed:
+#### Features:
+- **Real-time Conversation Simulation**: Users can enter prompts, and the system generates responses dynamically, simulating a conversation.
+- **Chat History Management**: Users can save and load previous chat sessions, enabling continuity and review of past interactions.
+- **Chat Summarization**: Provides a summary of the chat sessions when saving, simplifying long conversations into concise summaries.
+- **Download Chat Log**: Users can download the full chat history as a text file for offline review or documentation.
+
+#### Installation:
+1. **Prerequisites**:
 - Python 3.10+
 - Streamlit
 - for intermidate.py
     - Requests library
     - [Ollama](https://ollama.com/download) 
 - for simple.py
-- ollama library
+    -  ollama library
 
 You can install the required Python libraries using the following command:
 
 ```bash
-pip install streamlit requests
+pip install -r requirements.txt
 ```
 
-## Usage
+2. **Setup**:
+   - Clone or download the source code from the repository.
+   - Navigate to the directory containing `simple.py`.
 
-To run the application:
+3. **Running the Application** - *simple.py*:
+    -  Ensure that the `model` you are trying to use as been downloaded. (the default is llama3)
+   - Execute the following command in the terminal:
+     ```
+     streamlit run simple.py
+     ```
+   - Access the web interface by visiting `localhost:8501` in your web browser. or at `[yourIP]:8051` if accessing over the network
 
-1. Ensure that the local `Ollama` server is up and running on `http://localhost:11434/.
-2. Ensure that the `model` you are trying to use as been downloaded. (the default is phi3)
-### Start the Streamlit application 
+4. **Run the application** - *intermediate.py*:
 
-start a terminal in the root directory of the application and run: 
+    - Ensure that the local `Ollama` server is up and running on `http://localhost:11434/.
+    -  Ensure that the `model` you are trying to use as been downloaded. (the default is llama3)
+    - Start a terminal in the root directory of the application and run: 
+    ```bash
+    streamlit run intermediate.py
+    ```
 
-```bash
-streamlit run intermediate.py
-```
-# Variant Using ollama Library
-This variant simplifies the setup by using the ollama library, which abstracts the API interactions.
+#### Usage:
+- **Starting a Chat**: Enter your prompt in the chat input box and press enter to receive a response.
+- **Saving a Chat**: Click the "Save Chat" button in the sidebar to save the current chat session.
+- **Loading a Chat**: Select a previous chat from the sidebar to load and view past conversations.
+- **Downloading Chat Log**: Use the "Download Chat Log" button in the sidebar to download the current chat log.
 
-## Usage
-No Server Setup Required: The ollama library handles interactions with the model directly, so there's no need for manual server setup.
+#### File Structure:
+- `simple.py`: for people who want a self contained application
+- `intermediate.py`: For people who want to run the Ollama Server seperately 
 
-### Start the Streamlit application 
+#### Common Issues:
+- **Model Not Found Error**: Ensure the correct model name is specified and that your API keys are correctly configured.
+- **Network Issues**: Check your netowrk connection if the Ollama API can't be reached, ensure you've read the F.A.Q  on [Ollama's Github](https://github.com/ollama/ollama/blob/main/docs/api.md)
+- **Graphical Glitches**: When you load a chat and send your first message it will look like it unloads the chat, it is just a problem with how the messages are loaded into the chat interface. I'm sure a more motivated person could fix this. 
 
-start a terminal in the root directory of the application and run: 
+For more detailed documentation on the Ollama library, please refer to [Ollama's Official Documentation](https://ollama.com/library).
 
-```bash
-streamlit run simple.py
-```
-
-
-## Functionality
-- **Chat Function:** This variant uses the ollama.chat method to directly obtain responses based on user input.
-- **Error Handling:** Enhanced error handling to provide specific messages if the model is not found or if other errors occur.
-
-## How It Works
-
-- **Initialization**: The application sets up the Streamlit interface and initializes session state.
-- **User Interaction**: Users can enter prompts through a chat input. These prompts are then sent to the LLaMA model server.
-- **Streaming API**: The server returns responses in a streaming fashion, which are then displayed word-by-word on the interface.
-- **Session Persistence**: All messages (both user and assistant) are stored in the session state, allowing the chat history to be displayed throughout the session.
-
-## Code Structure
-
-- `main()`: The main function that initializes the Streamlit interface and manages session states and chat interactions.
-- `chat(messages)`: Handles sending user messages to the Ollama API and processes the streaming responses.
-- `show_msgs()`: Displays the chat history stored in the session state.
-- `response_generator(msg_content)`: A generator function that simulates real-time text streaming by introducing delays between words.
-
-## Troubleshooting
-
-If you encounter issues with the API connectivity:
-- Check if the server hosting the LLaMA model is running and accessible.
-- Verify the API endpoint and the request structure.
-- Ensure error handling is capturing and displaying exceptions properly.
-- Check Ollama documentation for help downloading the server and models. 
-
-For further help, please refer to the Streamlit, Ollama and Requests library documentation.
+#### Developer Contact:
+For issues, suggestions, or contributions, please contact the idiot who made this through the repository issues section
