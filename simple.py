@@ -121,12 +121,14 @@ def load_chat(file_path):
 def main():
     st.title("Ollama Chat Interface")
     user_input = st.chat_input("Enter your prompt:", key="1")
+    
     if 'show' not in st.session_state:
         st.session_state['show'] = 'True'
     if 'show_chats' not in st.session_state:
         st.session_state['show_chats'] = 'False'
     if 'messages' not in st.session_state:
         st.session_state['messages'] = []
+    show_msgs()
     if user_input:
         with st.chat_message("user"):
             st.write(user_input)
@@ -159,7 +161,7 @@ def main():
         
     for i in range(3):
         st.sidebar.write(" ")
-    show_msgs()
+    
 
 if __name__ == "__main__":
     main()
